@@ -6,7 +6,7 @@
 `pip install -r requirements.txt`
 
 ## RUN THIS TING
-`gunicorn -b 0.0.0.0:5000 main:app --reload`
+`gunicorn -b 0.0.0.0:8000 main:app --reload`
 
 ## USE THIS TING
 - `curl -X POST --data '{"url":"http://www.google.com"}' localhost:8000`
