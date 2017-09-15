@@ -3,16 +3,24 @@ import redis
 import uuid
 import json
 
-cache = redis.StrictRedis(host='localhost', port=6379,
+cache = redis.StrictRedis(host="localhost", port=6379,
                           charset="utf-8", decode_responses=True)
 
 
 class CacheResource(object):
+
     def on_get(self, req, resp, id):
         url = cache.get(id)
-        resp.status = falcon.HTTP_301
-        resp.set_header('Location', url)
-        raise falcon.HTTPMovedPermanently(url)
+        if url is not None:
+            resp.status = falcon.HTTP_301
+            resp.content_type = "application/json"
+            resp.body = (
+                '{"moved":"' + url + '"}')
+        else:
+            resp.status = falcon.HTTP_404
+            resp.content_type = "application/json"
+            resp.body = (
+                '{"error":"url not found"}')
 
     def on_post(self, req, resp, id):
         doc = json.load(req.stream)
