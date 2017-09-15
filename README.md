@@ -15,3 +15,6 @@
 
 ## HAMMER THIS TING
 `wrk -t12 -c800 -d30s http://localhost:8000/{uuid}`
+
+## TEST THIS TING
+`python tests/*.py`
